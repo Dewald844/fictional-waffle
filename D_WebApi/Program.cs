@@ -7,7 +7,7 @@ app.UseHttpsRedirection();
 app.MapPost("/login", async (LoginRequest loginRequest) =>
     {
         var user = await new Controller.UserService(
-            new Database.UserRepository("Data Source=users.db")).AuthenticateUserAsync(
+            new Database.UserRepository("Data Source=../B_Database/paltrack.db")).AuthenticateUserAsync(
             loginRequest.UserName, loginRequest.Password);
 
         if (user == null)

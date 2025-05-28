@@ -1,6 +1,10 @@
 @D_WebApi_HostAddress = http://localhost:5210
 
-GET {{D_WebApi_HostAddress}}/weatherforecast/
-Accept: application/json
+### Login POST request
+POST {{D_WebApi_HostAddress}}/login
+Content-Type: application/json
 
-###
+{
+  "userName": "initial.user@example.com",
+  "password": "InitialP@ss1"
+}

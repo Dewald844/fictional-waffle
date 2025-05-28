@@ -3,7 +3,7 @@
 using System.Data;
 using System.Threading.Tasks;
 using Dapper;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 
 public class User
 {
@@ -25,7 +25,7 @@ public class UserRepository(string connectionString)
 {
     public async Task<Domain.User> GetUserByEmailAsync(string email)
     {
-        using (IDbConnection db = new SQLiteConnection(connectionString))
+        using (IDbConnection db = new SqliteConnection(connectionString))
         {
             const string sql = "SELECT Id, Email, Password FROM User WHERE Email = @Email";
             var dbUser =  await db.QueryFirstOrDefaultAsync<User>(sql, new { Email = email });
