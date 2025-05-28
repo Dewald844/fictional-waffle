@@ -12,10 +12,6 @@ public class UserService
         _userRepository = userRepository;
     }
 
-    /// <summary>
-    /// Authenticates user by email and password.
-    /// Returns User if successful, otherwise null.
-    /// </summary>
     public async Task<Domain.User> AuthenticateUserAsync(string email, string password)
     {
         if (string.IsNullOrWhiteSpace(email))

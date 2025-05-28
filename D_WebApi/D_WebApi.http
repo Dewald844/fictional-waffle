@@ -8,3 +8,8 @@ Content-Type: application/json
   "userName": "initial.user@example.com",
   "password": "InitialP@ss1"
 }
+
+
+### Login POST request
+GET {{D_WebApi_HostAddress}}/olympic-winners
+Content-Type: application/json

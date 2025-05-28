@@ -1,14 +1,23 @@
 var builder = WebApplication.CreateBuilder(args);
 
-var app = builder.Build();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularDevClient", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")  // Angular app URL
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
-app.UseHttpsRedirection();
+var app = builder.Build();
 
 app.MapPost("/login", async (LoginRequest loginRequest) =>
     {
-        var user = await new Controller.UserService(
-            new Database.UserRepository("Data Source=../B_Database/paltrack.db")).AuthenticateUserAsync(
-            loginRequest.UserName, loginRequest.Password);
+        var user = await new
+                Controller.UserService(
+                    new Database.UserRepository("Data Source=../B_Database/paltrack.db"))
+                        .AuthenticateUserAsync(loginRequest.UserName, loginRequest.Password);
 
         if (user == null)
         {
@@ -22,6 +31,20 @@ app.MapPost("/login", async (LoginRequest loginRequest) =>
     })
     .WithName("Login")
     .WithOpenApi();
+
+app.MapGet("/olympic-winners", async () =>
+    {
+        var winners = await new
+                Controller.OlympicWinnerService(
+                    new Database.OlympicWinnerRepository("Data Source=../B_Database/paltrack.db"))
+                        .GetOlympicWinnersAsync();
+
+        return Results.Ok(winners);
+    })
+    .WithName("GetOlympicWinners")
+    .WithOpenApi();
+
+app.UseCors("AllowAngularDevClient");
 
 app.Run();
 

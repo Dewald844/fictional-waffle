@@ -1,0 +1,31 @@
+<h2>Olympic Winners</h2>
+<dx-data-grid
+  [dataSource]="dataSource"
+  [showBorders]="true"
+  [columnAutoWidth]="true"
+  [allowColumnResizing]="true"
+  [rowAlternationEnabled]="true"
+  [groupPanel]="{ visible: true }"
+  [grouping]="{ autoExpandAll: false }"
+  [filterRow]="{ visible: true }"
+  [headerFilter]="{ visible: true }"
+  [sorting]="{ mode: 'multiple' }"
+  (onExporting)="onExporting($event)"
+>
+  <dxi-column dataField="country" caption="Country" [groupIndex]="0"></dxi-column>
+  <dxi-column dataField="year" caption="Year" [groupIndex]="1"></dxi-column>
+  <dxi-column dataField="athlete" caption="Athlete"></dxi-column>
+  <dxi-column dataField="age" caption="Age" dataType="number"></dxi-column>
+  <dxi-column dataField="sport" caption="Sport"></dxi-column>
+  <dxi-column dataField="gold" caption="Gold" dataType="number"></dxi-column>
+  <dxi-column dataField="silver" caption="Silver" dataType="number"></dxi-column>
+  <dxi-column dataField="bronze" caption="Bronze" dataType="number"></dxi-column>
+  <dxi-column dataField="total" caption="Total" dataType="number"></dxi-column>
+
+  <dxo-export [enabled]="true"></dxo-export>
+
+  <dxo-toolbar>
+    <dxi-item name="exportButton"></dxi-item>
+  </dxo-toolbar>
+</dx-data-grid>
+
